@@ -2,30 +2,31 @@
 using namespace std;
 const int N=1e5+10;
 int parent[N];
-int size[N];
+int Size[N];
 
 void make(int v)
 {
     parent[v]=v;
-    size[v]=1;
+    Size[v]=1;
 }
-int find(int v)///for making parent
+int Find(int v)
 {
-    if(v==parent[v])return v;///root node
-    return parent[v]=find(parent[v]);///path compression
+    if(v==parent[v])return v;
+    return parent[v]=Find(parent[v]);///path compression
 }
 
 void Union(int a,int b)
 {
-    a=find(a);
-    b=find(b);
+    a=Find(a);
+    b=Find(b);
     if(a!=b){
-        if(size[a]<size[b])swap(a,b);
+        if(Size[a]<Size[b])swap(a,b);
         parent[b]=a;
-        size[a]+=size[b];
+        Size[a]+=Size[b];
     }
 
 }
+
 
 
 int main(){
@@ -41,7 +42,7 @@ while(k--){
 }
 int connected_ct=0;
 for(int i=1;i<=n;i++){
-    if(find(i)==i)connected_ct++;
+    if(Find(i)==i)connected_ct++;
 }
 cout<<connected_ct<<endl;
 
